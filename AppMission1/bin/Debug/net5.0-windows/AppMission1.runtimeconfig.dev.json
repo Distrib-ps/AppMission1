@@ -1,0 +1,9 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\delha\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\delha\\.nuget\\packages",
+      "D:\\vscode\\Shared\\NuGetPackages"
+    ]
+  }
+}
