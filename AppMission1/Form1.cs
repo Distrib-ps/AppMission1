@@ -18,7 +18,11 @@ namespace AppMission1
         {
             InitializeComponent();
         }
-
+        public Form1(BaseDeDonnees maBase)
+        {
+            InitializeComponent();
+            this.maBase = maBase;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             //événement déclenché lors du chargement du formulaire principal. 
@@ -33,7 +37,7 @@ namespace AppMission1
             {
                 textMotDePasse.Text = "";
             }
-            maBase = new BaseDeDonnees("localhost", "gsb", "3306", textIdentifiant.Text, textMotDePasse.Text);
+            maBase = new BaseDeDonnees("172.22.119.10", "gsb", textIdentifiant.Text, textMotDePasse.Text);
             MessageBox.Show("connexion établie");
         }
 
@@ -64,7 +68,16 @@ namespace AppMission1
 
         private void BntAjout_Click_1(object sender, EventArgs e)
         {
-            FrmAjout myForm = new FrmAjout();
+            FrmAjout myForm = new FrmAjout(maBase);
+            this.Hide();
+            myForm.ShowDialog();
+            this.Close();
+        }
+
+        private void BntModif_Click(object sender, EventArgs e)
+        {
+            FrmModif myForm = new FrmModif(maBase, listVilles.SelectedItem);
+            maBase.editPraticien(listVilles.SelectedItem);
             this.Hide();
             myForm.ShowDialog();
             this.Close();

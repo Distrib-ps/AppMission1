@@ -41,6 +41,7 @@ namespace AppMission1
             this.listVilles = new System.Windows.Forms.ListBox();
             this.BtnSupp = new System.Windows.Forms.Button();
             this.BntAjout = new System.Windows.Forms.Button();
+            this.BntModif = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -48,9 +49,9 @@ namespace AppMission1
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 15);
+            this.label1.Size = new System.Drawing.Size(106, 15);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Liste des Villes";
+            this.label1.Text = "Liste des Medecins";
             // 
             // BtnConnexion
             // 
@@ -150,11 +151,22 @@ namespace AppMission1
             this.BntAjout.UseVisualStyleBackColor = true;
             this.BntAjout.Click += new System.EventHandler(this.BntAjout_Click_1);
             // 
+            // BntModif
+            // 
+            this.BntModif.Location = new System.Drawing.Point(713, 371);
+            this.BntModif.Name = "BntModif";
+            this.BntModif.Size = new System.Drawing.Size(75, 23);
+            this.BntModif.TabIndex = 13;
+            this.BntModif.Text = "Modifier";
+            this.BntModif.UseVisualStyleBackColor = true;
+            this.BntModif.Click += new System.EventHandler(this.BntModif_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BntModif);
             this.Controls.Add(this.BntAjout);
             this.Controls.Add(this.BtnSupp);
             this.Controls.Add(this.listVilles);
@@ -168,7 +180,7 @@ namespace AppMission1
             this.Controls.Add(this.BtnConnexion);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "Liste Des Villes";
+            this.Text = "Liste Des Medecins";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -188,6 +200,7 @@ namespace AppMission1
         private System.Windows.Forms.ListBox listVilles;
         private System.Windows.Forms.Button BtnSupp;
         private System.Windows.Forms.Button BntAjout;
+        private System.Windows.Forms.Button BntModif;
     }
 }
 

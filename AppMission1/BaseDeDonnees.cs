@@ -6,14 +6,14 @@ using System.Windows.Forms;
 
 namespace Mission1AP3
 {
-    class BaseDeDonnees
+    public class BaseDeDonnees
     {
         //classe métier centrée les échanges avec la base de données.
        
         //Paramètre de classe sur la connexion
         private MySqlConnection laConnexion;
 
-        public BaseDeDonnees(string nomServeur, string nomBDD, string numeroPort, string nomUtilisateur, string MDP)
+        public BaseDeDonnees(string nomServeur, string nomBDD , string nomUtilisateur, string MDP)
         {
             //explication de Try et Catch
             try
@@ -22,7 +22,7 @@ namespace Mission1AP3
                 //construction de la chaine de connexion pour se connecter sur la base de données
                 string maChaineConnexion = "";
                 {
-                     maChaineConnexion = "server=" + nomServeur + ";Database=" + nomBDD + ";port=" + numeroPort + ";uid=" + nomUtilisateur + ";pwd=" + MDP;
+                     maChaineConnexion = "Server=" + nomServeur + ";Database=" + nomBDD + ";uid=" + nomUtilisateur + ";pwd=" + MDP;
                 }
                 laConnexion = new MySql.Data.MySqlClient.MySqlConnection();
                 laConnexion.ConnectionString = maChaineConnexion;
@@ -60,13 +60,130 @@ namespace Mission1AP3
                 //pour chaque Ligne retournée par la requete , nous allons remplir la liste des Villes
                 while (mesResultats.Read())
                 {
-                    uneListe.Items.Add(mesResultats.GetInt32("id") + " " + mesResultats.GetString("nom") + " " + mesResultats.GetString("prenom") + " " + mesResultats.GetString("adresse") + " " + mesResultats.GetFloat("coef_notoriete") + " " + mesResultats.GetString("code_type_praticien").ToString() + " " + mesResultats.GetInt32("id_ville").ToString());
+                    uneListe.Items.Add(mesResultats.GetInt32("id") + " | " + mesResultats.GetString("nom") + " | " + mesResultats.GetString("prenom") + " | " + mesResultats.GetString("adresse") + " | " + mesResultats.GetFloat("coef_notoriete") + " | " + mesResultats.GetString("code_type_praticien").ToString() + " | " + mesResultats.GetInt32("id_ville").ToString());
                 }
                 mesResultats.Close();
             }
             catch (System.Exception erreur)
             {
                 uneListe.Items.Add("Erreur");
+            }
+        }
+        public void chargerType(ComboBox uneListe)
+        {
+            try
+            {
+                string maRequete;
+                MySqlCommand maCommande;
+                MySqlDataReader mesResultats;
+
+                //on commence par netoyer la liste s'il y a des éléments déjà présent.
+                uneListe.Items.Clear();
+
+
+                maRequete = "SELECT code, libelle FROM `type_praticien`";
+
+                maCommande = new MySqlCommand(maRequete, laConnexion);
+
+                mesResultats = maCommande.ExecuteReader();
+                while (mesResultats.Read())
+                {
+                    uneListe.Items.Add(mesResultats.GetString("code") + " | " + mesResultats.GetString("libelle"));
+                    //uneListe.SelectionStart.ToString(mesResultats.GetString("code"));
+                }
+                uneListe.SelectedIndex = uneListe.Items.Count - 1;
+                //pour chaque Ligne retournée par la requete , nous allons remplir la liste des Villes
+                mesResultats.Close();
+            }
+            catch (System.Exception erreur)
+            {
+                MessageBox.Show("Erreur");
+            }
+        }
+        public void chargerVilles(ComboBox uneListe)
+        {
+            try
+            {
+                string maRequete;
+                MySqlCommand maCommande;
+                MySqlDataReader mesResultats;
+
+                //on commence par netoyer la liste s'il y a des éléments déjà présent.
+                uneListe.Items.Clear();
+
+
+                maRequete = "SELECT id, nom FROM `ville` ORDER BY id ASC";
+
+                maCommande = new MySqlCommand(maRequete, laConnexion);
+
+                mesResultats = maCommande.ExecuteReader();
+                while (mesResultats.Read())
+                {
+                    uneListe.Items.Add(mesResultats.GetInt32("id") + " | " + mesResultats.GetString("nom"));
+                    //uneListe.SelectionStart.ToString(mesResultats.GetString("code"));
+                }
+                uneListe.SelectedIndex = uneListe.Items.Count - 1;
+                //pour chaque Ligne retournée par la requete , nous allons remplir la liste des Villes
+                mesResultats.Close();
+            }
+            catch (System.Exception erreur)
+            {
+                MessageBox.Show("Erreur");
+            }
+        }
+        public void ajoutBase(string nom, string prenom, string adresse, double coef, string code_pract, int id_ville)
+        {
+            //explication de Try et Catch
+            try
+            {
+                string maRequete;
+                MySqlCommand maCommande;
+                MySqlDataReader mesResultats;
+                maRequete = "INSERT INTO praticien (nom, prenom, adresse, coef_notoriete, code_type_praticien, id_ville) VALUES(@nom, @prenom, @adresse, @coef_notoriete, @code_type_praticien, @id_ville);";
+
+
+                maCommande = new MySqlCommand(maRequete, laConnexion);
+                maCommande.Parameters.AddWithValue("@nom",nom);
+                maCommande.Parameters.AddWithValue("@prenom", prenom);
+                maCommande.Parameters.AddWithValue("@adresse", adresse);
+                maCommande.Parameters.AddWithValue("@coef_notoriete", coef);
+                maCommande.Parameters.AddWithValue("@code_type_praticien", code_pract);
+                maCommande.Parameters.AddWithValue("@id_ville", id_ville);
+                mesResultats = maCommande.ExecuteReader();
+                MessageBox.Show("Praticien ajouté !");
+                mesResultats.Close();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Erreur");
+            }
+        }
+        public void modifBase(int id, string nom, string prenom, string adresse, double coef, string code_pract, int id_ville)
+        {
+            //explication de Try et Catch
+            try
+            {
+                string maRequete;
+                MySqlCommand maCommande;
+                MySqlDataReader mesResultats;
+                maRequete = "UPDATE praticien SET nom = @nom, prenom = @prenom, adresse = @adresse, coef_notoriete = @coef_notoriete, code_type_praticien = @code_type_praticien, id_ville = @id_ville WHERE id = @id;";
+
+
+                maCommande = new MySqlCommand(maRequete, laConnexion);
+                maCommande.Parameters.AddWithValue("@id", id);
+                maCommande.Parameters.AddWithValue("@nom", nom);
+                maCommande.Parameters.AddWithValue("@prenom", prenom);
+                maCommande.Parameters.AddWithValue("@adresse", adresse);
+                maCommande.Parameters.AddWithValue("@coef_notoriete", coef);
+                maCommande.Parameters.AddWithValue("@code_type_praticien", code_pract);
+                maCommande.Parameters.AddWithValue("@id_ville", id_ville);
+                mesResultats = maCommande.ExecuteReader();
+                MessageBox.Show("Praticien modifié !");
+                mesResultats.Close();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Erreur");
             }
         }
         public void suppPraticien(object objetSelect)
@@ -76,7 +193,7 @@ namespace Mission1AP3
                 string maRequete;
                 MySqlCommand maCommande;
                 string curItem = objetSelect.ToString();
-                string[] id = curItem.Split(' ');
+                string[] id = curItem.Split(" | ");
                 string first = id[0];
             try
             {
@@ -89,6 +206,21 @@ namespace Mission1AP3
                 maCommande.ExecuteNonQuery();
 
             } catch(Exception ex)
+            {
+                MessageBox.Show("Erreur");
+            }
+        }
+        public void editPraticien(object objetSelect)
+        {
+            try { 
+                string maRequete;
+                MySqlCommand maCommande;
+                string curItem = objetSelect.ToString();
+                string[] split = curItem.Split(" | ");
+
+
+            }
+            catch (System.Exception erreur)
             {
                 MessageBox.Show("Erreur");
             }

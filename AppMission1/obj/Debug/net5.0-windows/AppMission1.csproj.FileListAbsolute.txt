@@ -81,3 +81,4 @@ G:\BTS\SIO2\AP\AppMission1\AppMission1\obj\Debug\net5.0-windows\AppMission1.dll
 G:\BTS\SIO2\AP\AppMission1\AppMission1\obj\Debug\net5.0-windows\ref\AppMission1.dll
 G:\BTS\SIO2\AP\AppMission1\AppMission1\obj\Debug\net5.0-windows\AppMission1.pdb
 G:\BTS\SIO2\AP\AppMission1\AppMission1\obj\Debug\net5.0-windows\AppMission1.genruntimeconfig.cache
+Z:\SIO2\AP\AppMission1\AppMission1\obj\Debug\net5.0-windows\AppMission1.FrmModif.resources

@@ -1,0 +1,13 @@
+Z:\SIO2\AP\AppMission1.exe
+Z:\SIO2\AP\AppMission1.dll
+Z:\SIO2\AP\AppMission1.deps.json
+Z:\SIO2\AP\AppMission1.runtimeconfig.json
+Z:\SIO2\AP\AppMission1.pdb
+Z:\SIO2\AP\Google.Protobuf.dll
+Z:\SIO2\AP\K4os.Compression.LZ4.dll
+Z:\SIO2\AP\K4os.Compression.LZ4.Streams.dll
+Z:\SIO2\AP\K4os.Hash.xxHash.dll
+Z:\SIO2\AP\MySql.Data.dll
+Z:\SIO2\AP\Ubiety.Dns.Core.dll
+Z:\SIO2\AP\ZstdNet.dll
+Z:\SIO2\AP\BouncyCastle.Crypto.dll
