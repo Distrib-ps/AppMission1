@@ -72,7 +72,7 @@ namespace AppMission1
             string nom = textNom.Text;
             string prenom = textPrenom.Text;
             string adresse = textAdresse.Text;
-            double coef = Convert.ToDouble(textCoef.Text);
+            double coef = Convert.ToDouble(textCoef.Text); 
             string code_pract = comboBoxCodeType.Text;
             string type = comboBoxCodeType.SelectedItem.ToString();
             string ville = comboBoxIdVille.SelectedItem.ToString();
