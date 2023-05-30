@@ -192,22 +192,24 @@ namespace Mission1AP3
 
                 string maRequete;
                 MySqlCommand maCommande;
+                MySqlDataReader mesResultats;
                 string curItem = objetSelect.ToString();
                 string[] id = curItem.Split(" | ");
                 string first = id[0];
             try
             {
 
-                maRequete = "DELETE FROM praticien WHERE `id`=" + first;
+                maRequete = "DELETE FROM praticien WHERE `id`= @first";
 
-                maCommande = new MySqlCommand("delPraticienById", laConnexion);
-                maCommande.CommandType = System.Data.CommandType.StoredProcedure;
-                maCommande.Parameters.Add(new MySqlParameter("theId", first));
-                maCommande.ExecuteNonQuery();
+                maCommande = new MySqlCommand(maRequete, laConnexion);
+                maCommande.Parameters.AddWithValue("@first", first);
+                mesResultats = maCommande.ExecuteReader();
+                MessageBox.Show("Praticien suppprimé !");
+                mesResultats.Close();
 
-            } catch(Exception ex)
-            {
-                MessageBox.Show("Erreur");
+            } catch(Exception ex) {
+            
+                MessageBox.Show("Erreur SUpp");
             }
         }
         public void editPraticien(object objetSelect)
